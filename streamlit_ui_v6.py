@@ -190,7 +190,7 @@ class StreamlitUI:
 
             self.display_sidebar()
             st.title("🏆Sports Data Agent🏆")
-            st.toggle("Show thought process", value=True, key="show_thought_process")
+            st.toggle("Show thought process", value=False, key="show_thought_process")
             self.display_chat_history()
 
             if user_input := st.chat_input(
