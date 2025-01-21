@@ -40,6 +40,12 @@ class StreamlitUI:
             content (str): Content of the message.
             message_type (str): Type of the message ('final', 'tool_call', 'tool_output').
         """
+        show_thought_process = st.session_state.get("show_thought_process", True)
+
+        if message_type in ["tool_call", "tool_output"] and not show_thought_process:
+            # Skip rendering thought process messages if hidden
+            return
+
         if message_type == "tool_call":
             with st.expander("Thought Process: Tool Call", expanded=False, icon="🤔"):
                 st.markdown(content)
@@ -68,6 +74,8 @@ class StreamlitUI:
         """
         Replay the entire chat history with appropriate display logic for each message type.
         """
+        show_thought_process = st.session_state.get("show_thought_process", True)
+
         for message in st.session_state.messages:
             role = message["role"]
             content = message["content"]
@@ -75,7 +83,13 @@ class StreamlitUI:
                 "type", "final"
             )  # Default to 'final' if type is not set
 
-            # Use the helper method to render the message
+            if (
+                message_type in ["tool_call", "tool_output"]
+                and not show_thought_process
+            ):
+                # Skip thought process messages if hidden
+                continue
+
             self.render_message(role, content, message_type)
 
     def format_sql_query(self, query: str) -> str:
@@ -107,6 +121,7 @@ class StreamlitUI:
         Process the agent's response and update the chat history.
         """
         try:
+
             for event in self.agent.graph.stream(
                 {"messages": [("user", user_input)]},
                 config,
@@ -175,6 +190,7 @@ class StreamlitUI:
 
             self.display_sidebar()
             st.title("🏆Sports Data Agent🏆")
+            st.toggle("Show thought process", value=True, key="show_thought_process")
             self.display_chat_history()
 
             if user_input := st.chat_input(
