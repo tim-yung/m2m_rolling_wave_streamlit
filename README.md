@@ -49,22 +49,24 @@ Built with **Streamlit**, the interface is both functional and intuitive:
 
 ## Quickstart with Docker
 
-### **1. Create a `secrets.toml` File:**
+### **1. Download / Git Clone this repo.**
+
+### **2. Create a `secrets.toml` File:**
 1. Copy the contents of `2_ref/secrets_sample.toml` and fill in your OpenAI API and LangSmith API keys.
 2. Create a folder named `.streamlit` in the project root directory.
 3. Save the new file as `secrets.toml` inside the `.streamlit` folder.
 
-### **2. Navigate to the Working Directory:**
+### **3. Navigate to the Working Directory:**
 ```sh
 cd /path_to_this_repo
 ```
 
-### **3. Build and Run the Docker Container:**
+### **4. Build and Run the Docker Container:**
 ```sh
 docker compose up --build
 ```
 
-### **4. Access the Chatbot:**
+### **5. Access the Chatbot:**
 - Open your web browser and go to `http://localhost:8501`.
 - Streamlit reflects code updates automatically.
 
