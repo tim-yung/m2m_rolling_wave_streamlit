@@ -1,0 +1,11 @@
+services:
+  streamlit_app: # Define the service for the Streamlit app
+    build: # Specify build configuration
+      context: . # Use the current directory as the build context
+      dockerfile: Dockerfile # Use the Dockerfile in the current directory
+    ports:
+      - "8501:8501" # Map port 8501 on the host to port 8501 in the container
+    volumes:
+      - .:/app # Mount the current directory to /app in the container
+    command: streamlit run chatbot.py # Command to run the Streamlit app
+
