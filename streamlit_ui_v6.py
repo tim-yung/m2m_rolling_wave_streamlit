@@ -194,7 +194,7 @@ class StreamlitUI:
             self.display_chat_history()
 
             if user_input := st.chat_input(
-                placeholder="Ask a question about sports data..."
+                placeholder="Who scored the most three point goals in Golden State Warrior?"
             ):
                 self.handle_user_input(user_input)
         elif st.session_state["authentication_status"] is False:
